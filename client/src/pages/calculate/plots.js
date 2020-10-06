@@ -20,7 +20,7 @@ export function Plots({ onExport = e => { } }) {
     if (!plots) return null;
     if (!Array.isArray(plots)) plots = [plots];
     if (params.final_sims === 1) plots = [plots[0]];
-    
+
     function handleExport(event) {
         event.preventDefault();
         setShow(false);
@@ -36,9 +36,9 @@ export function Plots({ onExport = e => { } }) {
     }
 
     const plotNames = [
-        'Simulated Data (First Iteration)',
-        'Local Power (Continuous Scale)',
-        'Local Power (Above Threshold)'
+        'Simulated Data',
+        'Continuous Power Scale',
+        'Power Above Threshold'
     ];
 
     return <Tab.Container id="plots-container" defaultActiveKey="plot-0">
@@ -49,6 +49,9 @@ export function Plots({ onExport = e => { } }) {
                         {plots.map((plot, i) => <Nav.Item key={`plot-tab-${i}`}>
                             <Nav.Link eventKey={`plot-${i}`} className="font-weight-bold">{plotNames[i]}</Nav.Link>
                         </Nav.Item>)}
+                        {params.gis && <Nav.Item key={'plot-tab-4'}>
+                            <Nav.Link eventKey={'plot-4'} className="font-weight-bold">GIS</Nav.Link>
+                        </Nav.Item>}
                     </Nav>
                     <button
                         id="export"
@@ -115,7 +118,7 @@ export function Plots({ onExport = e => { } }) {
             <Card.Body>
                 <Tab.Content className="text-center">
                     {plots.map((plot, i) => <Tab.Pane key={`plot-tab-container-${i}`} eventKey={`plot-${i}`}>
-                        <img className="img-fluid" style={{maxWidth: '480px',maxHeight: '480px'}} src={`api/results/${id}/${plot}?key=${urlKey}`} alt={`Plot ${i + 1}`} />
+                        <img className="img-fluid" style={{ maxWidth: '480px', maxHeight: '480px' }} src={`api/results/${id}/${plot}?key=${urlKey}`} alt={`Plot ${i + 1}`} />
                     </Tab.Pane>)}
                 </Tab.Content>
             </Card.Body>
