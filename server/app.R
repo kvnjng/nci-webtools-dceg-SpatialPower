@@ -250,8 +250,8 @@ plot_map <- function(params){
             ggplot2::scale_shape_manual(values = chars) + # shope of point-locations
             ggplot2::labs(x = "", y = "", fill = "Power", color = "", shape = "") # legend labels
 
-        pvalprop_reclass <- raster::reclassify(pvalprop_raster, c(-Inf, p_thresh-0.0000001, 1,
-                                                p_thresh-0.0000001, Inf, 2))
+        pvalprop_reclass <- raster::reclassify(pvalprop_raster, c(-Inf, params$p_thresh-0.0000001, 1,
+                                                params$p_thresh-0.0000001, Inf, 2))
         rtp <- raster::rasterToPolygons(pvalprop_reclass) # convert to polygons
         rtp@data$id <- 1:nrow(rtp@data)   # add id column for join
         rtpFort <- broom::tidy(rtp, data = rtp@data) # convert to tibble
