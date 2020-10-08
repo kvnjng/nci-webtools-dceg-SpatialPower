@@ -72,7 +72,6 @@ apiRouter.post('/submit', async (request, response) => {
         // perform calculation and return results
         const sourcePath = path.resolve(__dirname, 'app.R');
         const results = await r(sourcePath, 'calculate', [body]);
-        logger.info('Calculation Complete')
         response.json(results);
 
     } catch (error) {
