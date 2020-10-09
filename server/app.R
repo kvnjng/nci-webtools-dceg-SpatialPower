@@ -235,11 +235,11 @@ plot_map <- function(params){
         
         map1 <- ggmap::ggmap(base_map) + # basemap
             ggplot2::geom_polygon(data = dc_df, # original boundary
-                        ggplot2::aes(x = long, y = lat, group = group),
+                        ggplot2::aes(x = navy[[1]], y = navy[[2]], group = group),
                         fill = "transparent",
                         colour = "black") +
             ggplot2::geom_polygon(data = rtpFortMer, # output raster as polygons
-                        ggplot2::aes(x = long, y = lat, group = group, fill = z), 
+                        ggplot2::aes(x = navy[[1]], y = navy[[2]], group = group, fill = z), 
                         size = 0, 
                         alpha = 0.5) +
             ggplot2::scale_fill_gradientn(colours = rampcols) + # colors for polygons
@@ -259,11 +259,11 @@ plot_map <- function(params){
 
         map2 <- ggmap::ggmap(base_map) + # basemap 
             ggplot2::geom_polygon(data = dc_df, # original boundary
-                        ggplot2::aes(x = long, y = lat, group = group),
+                        ggplot2::aes(x = navy[[1]], y = navy[[2]], group = group),
                         fill = "transparent",
                         colour = "black") +
             ggplot2::geom_polygon(data = rtpFortMer, # output raster as polygons
-                        ggplot2::aes(x = long, y = lat, group = group, fill = as.factor(z)), 
+                        ggplot2::aes(x = navy[[1]], y = navy[[2]], group = group, fill = as.factor(z)), 
                         size = 0, 
                         alpha = 0.5) +
             ggplot2::scale_fill_manual(values = cols[c(5,2)],
