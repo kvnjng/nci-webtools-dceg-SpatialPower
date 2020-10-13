@@ -145,10 +145,6 @@ plot_map <- function(params){
     gis_path1 <- "https://opendata.arcgis.com/datasets/7241f6d500b44288ad983f0942b39663_10.geojson"
     dc <- geojsonio::geojson_read(gis_path1,  what = "sp")  
 
-    # American Community Survey 2018 Census Tracts
-    gis_path2 <- "https://opendata.arcgis.com/datasets/faea4d66e7134e57bf8566197f25b3a8_0.geojson"
-    census <- geojsonio::geojson_read(gis_path2,  what = "sp")
-
     clipwin <- maptools::unionSpatialPolygons(census, IDs = rep(1, length(census)))
     dcc <- rgeos::gIntersection(dc, clipwin, byid = TRUE)
 
