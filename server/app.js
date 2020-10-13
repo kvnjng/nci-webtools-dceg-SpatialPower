@@ -46,8 +46,8 @@ apiRouter.post('/submit', async (request, response) => {
             id,
             timestamp: day + ' ' + time + ' UTC',
             plot_format: 'png',
-            plot_width: 720,
-            plot_height: 720,
+            plot_width: 480,
+            plot_height: 480,
         });
 
         // remove empty values from body
@@ -95,8 +95,8 @@ apiRouter.post('/replot', async (request, response) => {
             directory: path.resolve(config.results.folder, request.body.id),
             rds_file: 'results.rds',
             plot_format: 'png',
-            plot_width: 720,
-            plot_height: 720,
+            plot_width: 480,
+            plot_height: 480,
         });
         const sourcePath = path.resolve(__dirname, 'app.R');
         const results = await r(sourcePath, 'replot', [body]);
@@ -115,8 +115,8 @@ apiRouter.post('/export-plots', async (request, response) => {
         // override default parameters
         const body = Object.assign({
             plot_format: 'png',
-            plot_width: 720,
-            plot_height: 720,
+            plot_width: 480,
+            plot_height: 480,
         }, request.body);
 
         // validate id format
