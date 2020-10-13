@@ -184,7 +184,7 @@ export function Calculate({ match }) {
                     valid = false;
                 }
 
-                if(value <= 0 ){
+                if (value <= 0) {
                     addMessage({ type: 'danger', text: 'Sample Case: R Case values must be a positive. (Value = ' + value + ')' })
                     valid = false;
                 }
@@ -233,6 +233,40 @@ export function Calculate({ match }) {
      */
     async function handleSubmit(params) {
         console.log(params);
+        /*
+        if (params.gis) {
+            if (params.win === 'rectangle') {
+
+                const geojson = {
+                    "type": "FeatureCollection",
+                    "properties": {},
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            [
+                                [
+                                    params.latitude,
+                                    params.longitude,
+                                ],
+                                [
+                                    params.latitude+params.height,
+                                    params.longitude
+                                ],
+                                [
+                                    params.latitude+params.height,
+                                    params.longitude+params.width
+                                ],
+                                [
+                                    params.latitude,
+                                    params.longitude+params.width
+                                ]
+                            ]
+                        ]
+                    }
+                }
+                console.log(geojson)
+            }
+        }*/
 
         resetResults();
         resetMessages();
@@ -254,6 +288,7 @@ export function Calculate({ match }) {
                 mergeResults({ loading: false, submitted: true, urlKey });
             }
         }
+
     }
 
     /**
@@ -289,7 +324,7 @@ export function Calculate({ match }) {
             mergeResults({ loading: true });
             const filename = await postJSON('api/export-plots', { ...params, id });
             const exportUrl = `${process.env.REACT_APP_API_ROOT}/api/results/${id}/${filename}`;
-            
+
             window.location.href = exportUrl;
         } catch (error) {
             addMessage({ type: 'danger', text: error });
