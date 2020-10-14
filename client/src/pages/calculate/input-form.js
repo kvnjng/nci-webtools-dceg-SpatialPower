@@ -215,7 +215,7 @@ export function InputForm({
                 {!params.gis && <div className="row">
                     <div className="col-md-6 form-group">
                         <label htmlFor="x_origin">X Origin</label>
-                        <OverlayTrigger overlay={<Tooltip id="x_origin_tooltip">Enter the X coordinate of the lower left corner</Tooltip>}>
+                        <OverlayTrigger overlay={<Tooltip id="x_origin_tooltip">Enter the X coordinate of the top left corner</Tooltip>}>
                             <input
                                 type="text"
                                 data-type="number"
@@ -231,7 +231,7 @@ export function InputForm({
 
                     <div className="col-md-6 form-group">
                         <label htmlFor="y_origin">Y Origin</label>
-                        <OverlayTrigger overlay={<Tooltip id="y_origin_tooltip">Enter the Y coordinate of the lower left corner</Tooltip>}>
+                        <OverlayTrigger overlay={<Tooltip id="y_origin_tooltip">Enter the Y coordinate of the top left corner</Tooltip>}>
                             <input
                                 type="text"
                                 data-type="number"
@@ -249,7 +249,7 @@ export function InputForm({
                 {params.gis && <div className="row">
                     <div className="col-md-6 form-group">
                         <label htmlFor="latitude">Latitude</label>
-                        <OverlayTrigger overlay={<Tooltip id="latitude_tooltip">Enter the latitude of the lower left corner</Tooltip>}>
+                        <OverlayTrigger overlay={<Tooltip id="latitude_tooltip">Enter the latitude of the top left corner</Tooltip>}>
                             <input
                                 type="text"
                                 data-type="number"
@@ -264,7 +264,7 @@ export function InputForm({
                     </div>
                     <div className="col-md-6 form-group">
                         <label htmlFor="longitude">Longitude</label>
-                        <OverlayTrigger overlay={<Tooltip id="latitude_tooltip">Enter the longitude of the lower left corner</Tooltip>}>
+                        <OverlayTrigger overlay={<Tooltip id="latitude_tooltip">Enter the longitude of the top left corner</Tooltip>}>
                             <input
                                 type="text"
                                 data-type="number"

@@ -11,6 +11,7 @@ import { Plots } from './plots';
 import { Summary } from './summary';
 import { fetchJSON, postJSON } from '../../services/query';
 import { PlotOptions } from './plot-options';
+import { getRectangularCoordinates, getRegularPolygonalCoordinates } from '../../services/utils/geospatial';
 const actions = { ...paramsActions, ...resultsActions, ...messagesActions };
 
 export function Calculate({ match }) {
@@ -227,54 +228,59 @@ export function Calculate({ match }) {
         return valid;
     }
 
+    function createGeoJson(params) {
+        var coordinates;
+
+        if (params.win === 'rectangle') {
+            var width = params.width;
+            var height = params.height;
+
+            if (params.unit === 'km') {
+                width = width * 1000;
+                height = height * 1000;
+            }
+            coordinates = getRectangularCoordinates(params.longitude, params.latitude, width, height);
+        }
+        else if (params.win === 'circle') {
+            var radius = params.radius;
+
+            if (params.unit === 'km')
+                radius = radius * 1000;
+
+            coordinates = getRegularPolygonalCoordinates(params.longitude, params.latitude, radius);
+        }
+
+        const geojson = {
+            "type": "FeatureCollection",
+            "properties": {},
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[coordinates]]
+            }
+        }
+        return geojson;
+    }
+
     /**
      * Posts calculation parameters to the 'submit' endpoint and saves results to the store
      * @param {object} params 
      */
     async function handleSubmit(params) {
         console.log(params);
-        /*
-        if (params.gis) {
-            if (params.win === 'rectangle') {
 
-                const geojson = {
-                    "type": "FeatureCollection",
-                    "properties": {},
-                    "geometry": {
-                        "type": "Polygon",
-                        "coordinates": [
-                            [
-                                [
-                                    params.latitude,
-                                    params.longitude,
-                                ],
-                                [
-                                    params.latitude+params.height,
-                                    params.longitude
-                                ],
-                                [
-                                    params.latitude+params.height,
-                                    params.longitude+params.width
-                                ],
-                                [
-                                    params.latitude,
-                                    params.longitude+params.width
-                                ]
-                            ]
-                        ]
-                    }
-                }
-                console.log(geojson)
-            }
-        }*/
+        const newParams = params;
+
+        if (params.gis) {
+            newParams.geojson = createGeoJson(params);
+        }
 
         resetResults();
         resetMessages();
         window.scrollTo(0, 0);
-        if (validateInput(params)) {
+        if (validateInput(newParams)) {
             try {
                 mergeResults({ loading: true });
-                const response = await postJSON('api/submit', params);
+                const response = await postJSON('api/submit', newParams);
 
                 // If the request was enqueued, notify the user. Otherwise, save results to the store
                 params.queue
@@ -288,7 +294,6 @@ export function Calculate({ match }) {
                 mergeResults({ loading: false, submitted: true, urlKey });
             }
         }
-
     }
 
     /**
