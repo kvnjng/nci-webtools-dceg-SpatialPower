@@ -147,6 +147,10 @@ plot_map <- function(params){
     clipwin <- maptools::unionSpatialPolygons(census, IDs = rep(1, length(census)))
     dcc <- rgeos::gIntersection(dc, clipwin, byid = TRUE)
 
+    # American Community Survey 2018 Census Tracts
+    gis_path2 <- "https://opendata.arcgis.com/datasets/faea4d66e7134e57bf8566197f25b3a8_0.geojson"
+    census <- geojsonio::geojson_read(gis_path2,  what = "sp")
+
     dcp <- sp::spTransform(dcc, CRSobj = sp::CRS(projargs = "+init=EPSG:32618"))
     dco <- spatstat::as.owin(dcp)
 
