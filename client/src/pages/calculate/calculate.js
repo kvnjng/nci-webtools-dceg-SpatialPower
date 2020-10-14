@@ -252,11 +252,16 @@ export function Calculate({ match }) {
 
         const geojson = {
             "type": "FeatureCollection",
-            "properties": {},
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [[coordinates]]
-            }
+            "features": [
+                {
+                    "type": "Feature",
+                    "properties": {},
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [coordinates]
+                    }
+                }
+            ]
         }
         return geojson;
     }
@@ -273,7 +278,7 @@ export function Calculate({ match }) {
         if (params.gis) {
             newParams.geojson = createGeoJson(params);
         }
-
+        console.log(newParams)
         resetResults();
         resetMessages();
         window.scrollTo(0, 0);
