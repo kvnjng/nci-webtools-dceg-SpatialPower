@@ -205,7 +205,8 @@ export function InputForm({
                         value={params.unit}
                         onChange={handleChange}>
                         <option value="" hidden>(select option)</option>
-                        <option value="degrees">Degrees</option>
+                        <option value="m">Meters</option>
+                        <option value="km">Kilometers</option>
                     </select>
                 </OverlayTrigger>
             </div>}
